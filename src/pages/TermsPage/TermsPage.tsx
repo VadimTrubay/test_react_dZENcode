@@ -1444,7 +1444,7 @@ const TermsPage: React.FC = () => {
       </p>
       <div className={styles.button}>
         <Button className={styles.button}
-                href="/register"
+                href="/signup"
                 variant="contained"
         >
           Go back

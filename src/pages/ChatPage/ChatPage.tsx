@@ -1,20 +1,17 @@
 import React from "react";
-import styles from "./HomePage.module.css";
+import styles from "./ChatPage.module.css";
 import {Typography} from "@mui/material";
 
 
-const HomePage: React.FC = () => {
+const ChatPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
       <Typography variant="h5" gutterBottom>
-        Home
-      </Typography>
-      <Typography>
-        Wellcome to single page application CHAT
+        Chat
       </Typography>
     </div>
   );
 };
 
-export default HomePage;
+export default ChatPage;

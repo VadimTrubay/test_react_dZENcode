@@ -1,7 +1,7 @@
 import {NavLink} from "react-router-dom";
 import {Breadcrumbs} from "@mui/material";
 import styles from "../Navigation/Navigation.module.css";
-import {chat, mainUrls} from "../../config/urls";
+import {mainUrls} from "../../config/urls";
 
 
 const Navigation = () => {
@@ -15,7 +15,7 @@ const Navigation = () => {
         <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.about}>
           ABOUT
         </NavLink>
-        <NavLink className={styles.nav_link_breadcrumb} to={chat}>
+        <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.chat}>
           CHAT
         </NavLink>
         <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.auth.me}>

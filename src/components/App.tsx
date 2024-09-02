@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {selectIsLoggedIn} from "../redux/auth/selectors";
 import UserRegistrationPage from "../pages/UserRegistrationPage/UserRegistrationPage.tsx";
 import UserAuthorizationPage from "../pages/UserAuthorizationPage/UserAuthorizationPage.tsx";
+import ChatPage from "../pages/ChatPage/ChatPage.tsx";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const AboutPage = lazy(() => import("../pages/AboutPage/AboutPage"));
@@ -15,7 +16,8 @@ const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
 
 const App: React.FC = () => {
   // const dispatch = useDispatch<AppDispatch>();
-  const isLoggedIn = useSelector<boolean>(selectIsLoggedIn);
+  // const isLoggedIn = useSelector<boolean>(selectIsLoggedIn);
+  const isLoggedIn = true;
   // const loading = useSelector(selectLoading);
 
 
@@ -41,6 +43,11 @@ const App: React.FC = () => {
         <Route
           path={RouterEndpoints.login}
           element={isLoggedIn ? <Navigate to={RouterEndpoints.index}/> : <UserAuthorizationPage/>}
+        />
+        <Route
+          path={`${RouterEndpoints.chat}`}
+          element={<ChatPage/>}
+          // element={isLoggedIn ? <Navigate to={RouterEndpoints.login}/> : <ChatPage/>}
         />
         {/*<Route*/}
         {/*  path={RouterEndpoints.me}*/}
