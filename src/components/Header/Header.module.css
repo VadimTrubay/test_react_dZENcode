@@ -1,0 +1,7 @@
+.app_bar {
+  background-color: var(--brand-color-contactbook);
+  display: flex;
+  justify-content: space-between;
+  min-width: 100%;
+  border-radius: 5px;
+}

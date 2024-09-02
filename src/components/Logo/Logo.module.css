@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container h6 {
+  display: inline;
+}
+
+.nav_link {
+  font-weight: bold;
+  color: var(--link);
+  text-decoration: none;
+}
+
+.nav_link:hover {
+  color: var(--link-hover);
+  cursor: pointer;
+}
+
+.typography {
+  margin-right: 2rem;
+  font-family: monospace;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.icon {
+  font-size: 20px;
+}

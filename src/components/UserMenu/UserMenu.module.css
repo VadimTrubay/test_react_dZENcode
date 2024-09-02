@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.username {
+  margin-right: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--link-hover);
+}
+
+.username:hover {
+  color: var(--link-hover);
+  cursor: pointer;
+}
+
+.email {
+  margin-right: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.email:hover {
+  color: var(--link-hover);
+  cursor: pointer;
+}

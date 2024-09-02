@@ -1,0 +1,28 @@
+.close {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--brand-color-contactbook);
+  cursor: pointer;
+}
+
+.title_edit,
+.title_add_company {
+  background-color: var(--brand-color-contactbook);
+  color: #ffffff;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.title_delete {
+  background-color: #ff0000;
+  color: #ffffff;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.edit {
+  color: blue;
+  font-size: 50px;
+}

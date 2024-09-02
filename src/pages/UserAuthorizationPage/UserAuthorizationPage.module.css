@@ -1,0 +1,29 @@
+.span {
+  margin-right: 4px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  margin: 8px;
+  background-color: var(--brand-color-contactbook-hover);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.boxSubmit {
+  margin-top: 1em;
+  border-color: red;
+}
+
+.success {
+  background-color: var(--brand-color-contactbook);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}

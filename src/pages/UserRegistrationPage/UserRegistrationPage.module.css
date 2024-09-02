@@ -1,0 +1,32 @@
+.span {
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  margin: 8px;
+  background-color: var(--brand-color-contactbook-hover);;
+}
+
+.box_submit {
+  margin-top: 1em;
+  border-color: red
+}
+
+.success {
+  background-color: var(--brand-color-contactbook);
+}
+
+.success:disabled {
+  background-color: #c7c7c7;
+}
+
+.checkbox {
+  font-size: 14px;
+}

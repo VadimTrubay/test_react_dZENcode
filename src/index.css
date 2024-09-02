@@ -1,0 +1,39 @@
+:root {
+  --brand-color-contactbook: #4178ff;
+  --brand-color-contactbook-hover: #2e5b8f;
+  --link: #ffffff;
+  --link-hover: #000000;
+  --brand-background-color: #dedede;
+}
+
+@media (max-width: 425px) {
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}

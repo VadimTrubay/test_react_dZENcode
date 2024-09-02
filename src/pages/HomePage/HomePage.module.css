@@ -1,0 +1,15 @@
+.container {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.button {
+  background-color: var(--brand-color-contactbook);
+}
+
+.button:hover {
+  background-color: var(--brand-color-contactbook-hover);
+}

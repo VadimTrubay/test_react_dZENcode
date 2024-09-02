@@ -1,0 +1,20 @@
+.not_found {
+  color: #ff0000;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button {
+  background-color: var(--brand-color-contactbook);
+}
+
+.button:hover {
+  background-color: var(--brand-color-contactbook-hover);
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
