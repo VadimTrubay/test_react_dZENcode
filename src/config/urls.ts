@@ -5,7 +5,7 @@ export const mainUrls = {
   index: "/",
   id: ":id",
   about: "about",
-  chat: "chat",
+  comments: "comments",
   terms: "terms",
   notFound: "*",
   auth: {
