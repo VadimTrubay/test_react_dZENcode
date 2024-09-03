@@ -3,10 +3,10 @@ export const RouterEndpoints = {
     id: ":id",
     about: "about",
     chat: "/chat",
-    me: "me",
+    me: "auth/me",
 
     signup: "/signup",
-    login: "/login",
+    signin: "/signin",
 
     terms: "terms",
     notFound: "*",

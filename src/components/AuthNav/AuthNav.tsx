@@ -11,7 +11,7 @@ const AuthNav: React.FC = () => {
       <NavLink className={styles.nav_link} to={RouterEndpoints.signup}>
         <RegisterButton/>
       </NavLink>
-      <NavLink className={styles.nav_link} to={RouterEndpoints.login}>
+      <NavLink className={styles.nav_link} to={RouterEndpoints.signin}>
         <LoginButton/>
       </NavLink>
     </div>

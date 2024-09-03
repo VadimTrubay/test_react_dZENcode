@@ -11,13 +11,18 @@ export const validationSchemaRegistration = Yup.object({
     .required()
     .min(4, "Email must be at least 4 characters")
     .max(50, "Email must not exceed 50 characters"),
+  home_page: Yup.string()
+  .url("Enter a valid URL for the home page")
+  .required("Home page is required")
+  .min(4, "Home page must be at least 4 characters")
+  .max(150, "Home page cannot exceed 50 characters"),
   password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .max(50, "Password must not exceed 50 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
-      "Password must contain at least one lowercase letter, one uppercase letter, and one digit"
-    ),
+    .min(4, "Password must be at least 8 characters")
+    .max(50, "Password must not exceed 50 characters"),
+  // .matches(
+  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+  //   "Password must contain at least one lowercase letter, one uppercase letter, and one digit"
+  // ),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
     .required(),

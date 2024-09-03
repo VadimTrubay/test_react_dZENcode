@@ -9,7 +9,7 @@ export const register = async (credentials: RegisterType): Promise<AxiosResponse
 };
 
 export const login = async (credentials: UserAuthorizationType): Promise<AxiosResponse> => {
-  return await axiosInstance.post(mainUrls.auth.login, credentials);
+  return await axiosInstance.post(mainUrls.auth.signin, credentials);
 };
 
 export const getMeApi = async (): Promise<AxiosResponse> => {

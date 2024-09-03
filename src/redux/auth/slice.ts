@@ -7,8 +7,7 @@ const initialAuth: initialAuthType = {
     id: "",
     username: "",
     email: "",
-    password: "",
-    new_password: "",
+    home_page: "",
   },
   access_token: "",
   isLoggedIn: false,
@@ -46,6 +45,7 @@ const handleGetMeFulfilled = (state: initialAuthType, action: PayloadAction<auth
   state.user.id = action.payload.id;
   state.user.username = action.payload.username;
   state.user.email = action.payload.email;
+  state.user.home_page = action.payload.home_page;
 };
 
 const handleLogOutFulfilled = (state: initialAuthType) => {

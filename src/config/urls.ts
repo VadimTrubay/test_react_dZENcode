@@ -10,7 +10,7 @@ export const mainUrls = {
   notFound: "*",
   auth: {
     signup: `${auth}/signup`,
-    login: `${auth}/login`,
+    signin: `${auth}/signin`,
     me: `${auth}/me`
   },
   // chat: {
