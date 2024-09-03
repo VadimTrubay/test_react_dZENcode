@@ -1,9 +1,16 @@
 export interface initialAuthType {
-  user: authType,
+  user: userType,
   access_token: string;
   isLoggedIn: boolean;
   loading: boolean;
   error: null;
+}
+
+export interface userType {
+  id: string;
+  username: string;
+  email: string;
+  home_page: string;
 }
 
 export interface authType {
@@ -47,6 +54,7 @@ export interface UserAuthorizationType {
 export interface UserRegistrationType {
   username: string;
   email: string;
+  home_page: string;
   password: string;
   confirmPassword: string,
 }

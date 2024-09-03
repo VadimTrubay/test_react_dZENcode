@@ -107,6 +107,19 @@ const RegistrationForm = () => {
                 <TextField
                   required
                   fullWidth
+                  id="home_page"
+                  label="Home Page Address"
+                  color="primary"
+                  name="home_page"
+                  autoComplete="home_page"
+                  value={formik.values.home_page}
+                  onChange={formik.handleChange}
+                  error={formik.touched.home_page && Boolean(formik.errors.home_page)}
+                  helperText={formik.touched.home_page && formik.errors.home_page}
+                />
+                <TextField
+                  required
+                  fullWidth
                   name="password"
                   label="Password"
                   color="primary"

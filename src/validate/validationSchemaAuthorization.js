@@ -7,6 +7,6 @@ export const validationSchemaAuthorization = Yup.object({
     .min(4)
     .max(50),
   password: Yup.string()
-    .min(8)
+    .min(4)
     .max(50),
 });
