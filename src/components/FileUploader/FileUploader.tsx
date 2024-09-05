@@ -1,18 +1,41 @@
-import React from 'react';
-import { Button, Input } from '@mui/material';
+import React, {useState} from 'react';
+import {Button} from '@mui/material';
 
 const FileUploader: React.FC = () => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Обработать файл
-      console.log('Selected file:', file);
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      // Отправка файла на сервер
+      fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('File uploaded successfully:', data);
+        })
+        .catch((error) => {
+          console.error('Error uploading file:', error);
+        });
     }
   };
 
   return (
     <div>
-      <Input type="file" onChange={handleFileChange} />
+      <input type="file" onChange={handleFileChange}/>
+      <Button variant="contained" color="primary" onClick={handleUpload}>
+        Upload
+      </Button>
     </div>
   );
 };

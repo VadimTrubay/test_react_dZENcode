@@ -1,4 +1,5 @@
-import { io } from 'socket.io-client';
+import {io} from 'socket.io-client';
 
-export const socket = io('http://localhost:8000/ws/comments/');
+const socket = io('ws://localhost:8001/ws/comments/');
 
+export default socket;

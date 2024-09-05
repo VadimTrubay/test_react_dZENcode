@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
-import {TextField, Button, Box} from '@mui/material';
+import {TextField, Button} from '@mui/material';
+import socket from "../../socket/socket";
 
 const CommentForm: React.FC = () => {
   const [comment, setComment] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Отправить комментарий на сервер
-    console.log('Submitting comment:', comment);
-    setComment('');
+    if (comment.trim()) {
+      socket.emit('message', {message: comment});
+      setComment('');
+    }
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <TextField
         fullWidth
         multiline
@@ -23,9 +25,9 @@ const CommentForm: React.FC = () => {
         placeholder="Write your comment..."
       />
       <Button type="submit" variant="contained" color="primary" sx={{mt: 2}}>
-        Submit
+        Add Comment
       </Button>
-    </Box>
+    </form>
   );
 };
 

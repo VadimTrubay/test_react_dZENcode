@@ -50,9 +50,8 @@ const App: React.FC = () => {
           element={isLoggedIn ? <Navigate to={RouterEndpoints.index}/> : <UserAuthorizationPage/>}
         />
         <Route
-          path={`${RouterEndpoints.chat}`}
-          element={<ChatPage/>}
-          // element={isLoggedIn ? <Navigate to={RouterEndpoints.signin}/> : <ChatPage/>}
+          path={`${RouterEndpoints.comments}`}
+          element={!isLoggedIn ? <Navigate to={RouterEndpoints.signin}/> : <ChatPage/>}
         />
         <Route
           path={RouterEndpoints.me}

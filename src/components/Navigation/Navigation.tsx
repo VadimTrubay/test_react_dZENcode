@@ -15,7 +15,7 @@ const Navigation = () => {
         <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.about}>
           ABOUT
         </NavLink>
-        <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.chat}>
+        <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.comments}>
           CHAT
         </NavLink>
         <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.auth.me}>

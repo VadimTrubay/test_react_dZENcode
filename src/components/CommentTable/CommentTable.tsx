@@ -1,41 +1,29 @@
 import React from 'react';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel} from '@mui/material';
+import {Table, TableHead, TableRow, TableCell, TableBody} from '@mui/material';
+import parse from 'html-react-parser';
 
-interface CommentTableProps {
-  comments: any[];
-}
-
-const CommentTable: React.FC<CommentTableProps> = ({comments}) => {
-  // Функция для сортировки данных
-  const sortedComments = [...comments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
+const CommentTable = ({comments}) => {
   return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <TableSortLabel>Username</TableSortLabel>
-            </TableCell>
-            <TableCell>
-              <TableSortLabel>Email</TableSortLabel>
-            </TableCell>
-            <TableCell>
-              <TableSortLabel>Date</TableSortLabel>
-            </TableCell>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>User Name</TableCell>
+          <TableCell>Email</TableCell>
+          <TableCell>Date</TableCell>
+          <TableCell>Comment</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {comments.map((comment) => (
+          <TableRow key={comment.id}>
+            <TableCell>{comment.user.name}</TableCell>
+            <TableCell>{comment.user.email}</TableCell>
+            <TableCell>{new Date(comment.created_at).toLocaleString()}</TableCell>
+            <TableCell>{parse(comment.text)}</TableCell>
           </TableRow>
-        </TableHead>
-        <TableBody>
-          {sortedComments.map(comment => (
-            <TableRow key={comment.id}>
-              <TableCell>{comment.userName}</TableCell>
-              <TableCell>{comment.email}</TableCell>
-              <TableCell>{comment.date}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 
