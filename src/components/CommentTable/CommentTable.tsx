@@ -1,3 +1,4 @@
+// CommentTable.tsx
 import React from 'react';
 import {Table, TableHead, TableRow, TableCell, TableBody} from '@mui/material';
 import parse from 'html-react-parser';

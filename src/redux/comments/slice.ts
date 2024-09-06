@@ -1,25 +1,32 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {initialCommentsType} from "../../types/commentsTypes";
-import {fetchComments} from "./operations.ts";
+import {CommentsResponseType, CommentType, InitialCommentsType} from "../../types/commentsTypes";
+import {fetchComments} from "./operations";
 
-const initialComments: initialCommentsType = {
+const initialComments: InitialCommentsType = {
   items: [],
+  count: 0,
+  next: null,
+  previous: null,
   loading: false,
   error: null,
 };
 
-const handlePending = (state: initialCommentsType) => {
+const handlePending = (state: InitialCommentsType) => {
   state.loading = true;
 };
 
-const handleRejected = (state: initialCommentsType, action: PayloadAction<any>) => {
+const handleRejected = (state: InitialCommentsType, action: PayloadAction<any>) => {
   state.loading = false;
   state.error = action.payload;
 };
 
-const handleFetchCommentsFulfilled = (state: initialCommentsType, action: PayloadAction<initialCommentsType>) => {
+const handleFetchCommentsFulfilled = (state: InitialCommentsType, action: PayloadAction<CommentsResponseType[]>) => {
   state.loading = false;
   state.error = null;
+  state.items = action.payload.results;
+  state.count = action.payload.count;
+  state.next = action.payload.next;
+  state.previous = action.payload.previous;
 };
 
 const commentSlice = createSlice({

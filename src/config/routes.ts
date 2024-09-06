@@ -2,7 +2,7 @@ export const RouterEndpoints = {
     index: "/",
     id: ":id",
     about: "about",
-    comments: "/comments/",
+    comments: "comments/",
     me: "auth/me",
 
     signup: "/signup",

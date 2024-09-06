@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectIsLoggedIn} from "../redux/auth/selectors";
 import UserRegistrationPage from "../pages/UserRegistrationPage/UserRegistrationPage.tsx";
 import UserAuthorizationPage from "../pages/UserAuthorizationPage/UserAuthorizationPage.tsx";
-import ChatPage from "../pages/ChatPage/ChatPage.tsx";
+import CommentsPage from "../pages/CommentsPage/CommentsPage.tsx";
 import UserProfilePage from "../pages/UserProfilePage/UserProfilePage.tsx";
 import {getMe} from "../redux/auth/operations.ts";
 import {AppDispatch} from "../redux/store.ts";
@@ -51,7 +51,7 @@ const App: React.FC = () => {
         />
         <Route
           path={`${RouterEndpoints.comments}`}
-          element={!isLoggedIn ? <Navigate to={RouterEndpoints.signin}/> : <ChatPage/>}
+          element={!isLoggedIn ? <Navigate to={RouterEndpoints.signin}/> : <CommentsPage/>}
         />
         <Route
           path={RouterEndpoints.me}

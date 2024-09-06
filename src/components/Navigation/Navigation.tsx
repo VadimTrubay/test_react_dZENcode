@@ -16,7 +16,7 @@ const Navigation = () => {
           ABOUT
         </NavLink>
         <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.comments}>
-          CHAT
+          COMMENTS
         </NavLink>
         <NavLink className={styles.nav_link_breadcrumb} to={mainUrls.auth.me}>
           MY PROFILE
