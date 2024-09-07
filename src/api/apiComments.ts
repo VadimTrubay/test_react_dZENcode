@@ -12,7 +12,7 @@ export const fetchCommentsListApi  = async (params: any): Promise<AxiosResponse>
 };
 
 export const getCommentByIdApi = async (id: number): Promise<AxiosResponse> => {
-  return await axiosInstance.get(mainUrls.comments.byId(id));
+  return await axiosInstance.get(mainUrls.comments.byIdd(id));
 };
 
 export const addCommentApi = async (commentData: CommentType): Promise<AxiosResponse> => {
@@ -20,5 +20,5 @@ export const addCommentApi = async (commentData: CommentType): Promise<AxiosResp
 };
 
 export const deleteCommentApi = async (id: number): Promise<AxiosResponse> => {
-  return await axiosInstance.delete(mainUrls.comments.byId(id));
+  return await axiosInstance.delete(mainUrls.comments.byIdd(id));
 }

@@ -139,7 +139,7 @@ const CommentsListPage: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {comments?.map((comment) => comment.replies !== 0 && (
+            {comments?.map((comment) => !comment.parent && (
               <TableRow key={comment.id}>
                 <TableCell className={styles.firstColumn}>{parse(comment.text)}</TableCell>
                 <TableCell className={styles.otherColumns}>{comment.user.username}</TableCell>
@@ -161,11 +161,11 @@ const CommentsListPage: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
-          <Button onClick={handleOpenAddCommentModal}>
-            <BiCommentAdd className={styles.add_comment_link}/>
-            Add Comment
-          </Button>
         </Table>
+        <Button onClick={handleOpenAddCommentModal}>
+          <BiCommentAdd className={styles.add_comment_link}/>
+          Add Comment
+        </Button>
         <TablePagination
           rowsPerPageOptions={[25, 50, 100]}
           component="div"
@@ -175,7 +175,7 @@ const CommentsListPage: React.FC = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-        <Box className={styles.modalContent}>
+        <Box>
           <CommentForm
             openAddCommentModal={openAddCommentModal}
             closeAddCommentModal={handleCloseAddCommentModal}

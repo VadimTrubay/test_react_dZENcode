@@ -1,165 +1,145 @@
-// CommentByIdPage.tsx
-import React, {useState, useEffect, ChangeEvent} from 'react';
-import {
-  Typography,
-  TablePagination,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  IconButton,
-  Tooltip,
-  TableContainer, Paper
-} from '@mui/material';
-import {fetchCommentById} from "../../redux/comments/operations";
-import {AddComment, Sort} from '@mui/icons-material';
-import parse from 'html-react-parser';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useParams} from 'react-router-dom';
+import {selectCommentById} from "../../redux/comments/selectors.ts";
+import {deleteComment, fetchCommentById} from "../../redux/comments/operations.ts";
 import {CommentType} from "../../types/commentsTypes.ts";
-import {AppDispatch} from "../../redux/store.ts";
-import {useDispatch, useSelector} from "react-redux";
-import {selectAllComments, selectCommentById, selectCountComments} from "../../redux/comments/selectors";
-import {useParams} from "react-router-dom";
-import {number} from "yup";
+import CommentForm from "../../components/CommentForm/CommentForm.tsx";
+import {Box} from "@mui/material";
+import BaseModalWindow from "../../components/BaseModalWindow/BaseModalWindow.tsx";
+import styles from "../CommentsListPage/CommentsListPage.module.css";
 
-const CommentByIdPage: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const {id} = useParams<{ id: string }>();
-  const commentById = useSelector<CommentType[] | null>(selectCommentById);
-  const totalComments = useSelector<any>(selectCountComments);
-  const [comments, setComments] = useState<CommentType[]>([]);
-  const [expandedComments, setExpandedComments] = useState<number[]>([]);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortOrder, setSortOrder] = useState('desc');
-  const [sortField, setSortField] = useState('created_at');
+// Recursive Comment Component
+const Comment = ({comment, onReply, onDelete}) => {
+  const [showReplies, setShowReplies] = useState(true);
 
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchCommentById(Number(id)));
-    }
-  }, [page, rowsPerPage, sortField, sortOrder, dispatch]);
-
-  useEffect(() => {
-    setComments(commentById);
-  }, [comments]);
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleSort = (field: string) => {
-    const isAsc = sortField === field && sortOrder === 'asc';
-    setSortOrder(isAsc ? 'desc' : 'asc');
-    setSortField(field);
-  };
-
-  const toggleExpand = (commentId: number) => {
-    setExpandedComments(prevState =>
-      prevState.includes(commentId)
-        ? prevState.filter(id => id !== commentId)
-        : [...prevState, commentId]
-    );
-  };
-
-  const renderReplies = (replies: CommentType[], level: number = 0) => {
-    return replies.map(reply => (
-      <React.Fragment key={reply.id}>
-        <TableRow>
-          <TableCell style={{paddingLeft: `${level * 20}px`}}>
-            {reply.user.username}
-          </TableCell>
-          <TableCell>{reply.user.email}</TableCell>
-          <TableCell>{new Date(reply.created_at || '').toLocaleString()}</TableCell>
-          <TableCell>{parse(reply.text)}</TableCell>
-          <TableCell>
-            <IconButton onClick={() => {/* Handle reply to comment */
-            }}>
-              <AddComment/>
-            </IconButton>
-          </TableCell>
-        </TableRow>
-        {expandedComments?.includes(reply.id) && renderReplies(reply.replies, level + 1)}
-      </React.Fragment>
-    ));
+  const toggleReplies = () => {
+    setShowReplies(!showReplies);
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Typography variant="h5" gutterBottom>
-        Comment Page
-      </Typography>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <Tooltip title="Sort">
-                <IconButton onClick={() => handleSort('user__username')}>
-                  User Name <Sort/>
-                </IconButton>
-              </Tooltip>
-            </TableCell>
-            <TableCell>
-              <Tooltip title="Sort">
-                <IconButton onClick={() => handleSort('user__email')}>
-                  Email <Sort/>
-                </IconButton>
-              </Tooltip>
-            </TableCell>
-            <TableCell>
-              <Tooltip title="Sort">
-                <IconButton onClick={() => handleSort('created_at')}>
-                  Date <Sort/>
-                </IconButton>
-              </Tooltip>
-            </TableCell>
-            <TableCell>Content</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {comments?.map(comment => (
-            <React.Fragment key={comment.id}>
-              <TableRow>
-                <TableCell>
-                  {comment.user.username}
-                </TableCell>
-                <TableCell>{comment.user.email}</TableCell>
-                <TableCell>{new Date(comment.created_at || '').toLocaleString()}</TableCell>
-                <TableCell>{parse(comment.text)}</TableCell>
-                <TableCell>
-                  <IconButton onClick={() => toggleExpand(comment.id)}>
-                    {expandedComments?.includes(comment.id) ? 'Collapse' : 'Expand'}
-                  </IconButton>
-                  <IconButton onClick={() => {/* Handle reply to comment */
-                  }}>
-                    <AddComment/>
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-              {expandedComments?.includes(comment.id) && renderReplies(comment.replies)}
-            </React.Fragment>
+    <div
+      style={{marginLeft: comment.parent ? '40px' : '0', border: '1px solid #ddd', padding: '10px', marginTop: '10px'}}>
+      <div>
+        <strong>{comment.user.username}</strong> <small>{new Date(comment.created_at).toLocaleString()}</small>
+      </div>
+      <div dangerouslySetInnerHTML={{__html: comment.text}}/>
+      {comment.file && <a href={comment.file} target="_blank" rel="noopener noreferrer">Download File</a>}
+      <div style={{marginTop: '10px'}}>
+        <button onClick={() => onReply(comment.id)}>+ Add Reply</button>
+        <button onClick={() => onDelete(comment.id)}>🗑 Delete</button>
+        {comment.replies && comment.replies.length > 0 && (
+          <button onClick={toggleReplies}>{showReplies ? 'Hide Replies' : 'Show Replies'}</button>
+        )}
+      </div>
+      {showReplies && comment.replies && comment.replies.length > 0 && (
+        <div>
+          {comment.replies.map(reply => (
+            <Comment key={reply.id} comment={reply} onReply={onReply} onDelete={onDelete}/>
           ))}
-        </TableBody>
-      </Table>
-      <TablePagination
-        rowsPerPageOptions={[25, 50, 100]}
-        component="div"
-        count={totalComments}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </TableContainer>
+        </div>
+      )}
+    </div>
   );
 };
 
+// Page Component for displaying comments by ID
+const CommentsByIdPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const {id} = useParams<{ id: string }>();
+  const backendData = useSelector(selectCommentById);
+  const [comment, setComment] = useState<CommentType | null>(null);
+  const [openAddCommentModal, setOpenAddCommentModal] = useState(false);
+  const [openDeleteCommentModal, setOpenDeleteCommentModal] = useState<boolean>(false);
+  const [commentToDelete, setCommentToDelete] = useState<CommentType | null>(null);
+  const [refreshFlag, setRefreshFlag] = useState(false); // Track when to refresh comments
 
-export default CommentByIdPage;
+  const handleOpenAddCommentModal = () => setOpenAddCommentModal(true);
+  const handleCloseAddCommentModal = () => setOpenAddCommentModal(false);
+
+  const handleOpenDeleteCommentModal = (comment: CommentType) => {
+    setCommentToDelete(comment);
+    setOpenDeleteCommentModal(true);
+  };
+
+  const handleCloseDeleteCommentModal = () => {
+    setOpenDeleteCommentModal(false);
+    setCommentToDelete(null);
+  };
+
+  const handleAddCommentSuccess = () => {
+    setRefreshFlag(!refreshFlag); // Trigger refresh after adding a comment
+    handleCloseAddCommentModal();
+  };
+
+  const handleDeleteComment = () => {
+    if (commentToDelete) {
+      dispatch(deleteComment(commentToDelete.id));
+      handleCloseDeleteCommentModal();
+      setRefreshFlag(!refreshFlag); // Trigger refresh after deletion
+    }
+  };
+
+  // Fetch the comment data by ID from Redux
+  useEffect(() => {
+    dispatch(fetchCommentById(Number(id)));
+  }, [dispatch, id, refreshFlag]);
+
+  // Update the comment state whenever backendData changes
+  useEffect(() => {
+    if (backendData) {
+      setComment(backendData); // backendData is assumed to be a single comment object
+    }
+  }, [backendData]);
+
+  const handleReply = (parentId: number) => {
+    // Logic to open a reply form (possibly in a modal) and send the new reply
+    handleOpenAddCommentModal(); // Opens the comment form modal for replying
+  };
+
+  const handleDelete = (commentId: number) => {
+    handleOpenDeleteCommentModal(comment!); // Opens the delete confirmation modal
+  };
+
+  return (
+    <div>
+      <h2>Comments for Post ID: {id}</h2>
+      <div>
+        {comment ? (
+          <Comment
+            key={comment.id}
+            comment={comment}
+            onReply={handleReply}
+            onDelete={handleDelete}
+          />
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+      <Box>
+        <CommentForm
+          openAddCommentModal={openAddCommentModal}
+          closeAddCommentModal={handleCloseAddCommentModal}
+          onSuccess={handleAddCommentSuccess} // Pass success handler
+        />
+      </Box>
+      {/* Delete modal */}
+      <BaseModalWindow
+        openModal={openDeleteCommentModal}
+        closeModal={handleCloseDeleteCommentModal}
+        style_close={styles.close}
+        color_off={"error"}
+        style_title={styles.title_delete}
+        title={"Delete comment"}
+        text={"Are you sure you want to delete this comment?"}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleDeleteComment();
+        }}
+        style_done={{color: "red", fontSize: 50}}
+      />
+    </div>
+  );
+};
+
+export default CommentsByIdPage;

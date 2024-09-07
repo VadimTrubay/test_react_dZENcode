@@ -15,6 +15,7 @@ export const mainUrls = {
   },
     comments: {
     all: `${comments}/`,
-    byId: (id: number) => `${comments}/${id}/`,
+    byId: (id: number) => `${id}/`,
+    byIdd: (id: number) => `${comments}/${id}/`,
   },
 }
