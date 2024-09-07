@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
-import {Modal, Box, TextField, Button, Typography} from '@mui/material';
-import {CommentType} from "../../types/commentsTypes.ts";
-import CommentForm from "../CommentForm/CommentForm.tsx";
+import React, { useState } from 'react';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@mui/material';
 
 interface ReplyModalProps {
   open: boolean;
@@ -9,47 +7,36 @@ interface ReplyModalProps {
   parentId: number | null;
 }
 
-const ReplyModal: React.FC<ReplyModalProps> = ({open, onClose, parentId}) => {
-  const [content, setContent] = useState('');
+const ReplyModal: React.FC<ReplyModalProps> = ({ open, onClose, parentId }) => {
+  const [replyText, setReplyText] = useState('');
 
   const handleSubmit = () => {
-    // Dispatch action to submit reply
-    console.log('Reply content:', content);
-    console.log('Parent ID:', parentId);
+    // Handle reply submission
+    console.log('Submit reply:', replyText, 'for parentId:', parentId);
+    // You would dispatch an action or call a function to submit the reply here
     onClose();
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 400,
-          bgcolor: 'background.paper',
-          borderRadius: 1,
-          boxShadow: 24,
-          p: 4
-        }}
-      >
-        <Typography variant="h6">Reply to Comment</Typography>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Reply to Comment</DialogTitle>
+      <DialogContent>
         <TextField
-          multiline
-          rows={4}
+          autoFocus
+          margin="dense"
+          label="Reply"
+          type="text"
           fullWidth
-          label="Your Reply"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          margin="normal"
+          variant="outlined"
+          value={replyText}
+          onChange={(e) => setReplyText(e.target.value)}
         />
-        <CommentForm/>
-        <Button onClick={handleSubmit} color="primary">
-          Submit
-        </Button>
-      </Box>
-    </Modal>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

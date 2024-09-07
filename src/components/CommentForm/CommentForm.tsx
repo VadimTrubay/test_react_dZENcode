@@ -1,100 +1,177 @@
-import React, {useState} from 'react';
-import {TextField, Button, Box, Typography} from '@mui/material';
-import {Lightbox} from 'lightbox2';
-import Resizer from 'react-image-file-resizer';
+import React, {useState, ChangeEvent} from "react";
+import {TextField, Button, Box, Typography, Modal} from "@mui/material";
+import DoneIcon from "@mui/icons-material/Done";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import {useDispatch} from "react-redux";
+import {useFormik} from "formik";
+import Resizer from "react-image-file-resizer";
+import {addComment} from "../../redux/comments/operations";
+import {initialValues} from "../../initialValues/initialValues";
+import {validationSchemaAddComment} from "../../validate/validationSchemaAddComment";
+import styles from "./CommentForm.module.css";
 
-const CommentForm: React.FC = () => {
-  const [comment, setComment] = useState<string>('');
-  const [image, setImage] = useState<string | null>(null);
-  const [textFile, setTextFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
+const allowedTags = ["a", "code", "i", "strong"];
 
-  // Handle Comment Submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+// HTML tag validation
+const validateHTML = (input: string) => {
+  const tagPattern = /<\/?([a-z]+)([^>]*)>/gi;
+  const openedTags: string[] = [];
+  let isValid = true;
 
-    // Validate HTML tags (using a regex to allow only the allowed tags)
-    const allowedTags = /<\/?(a|code|i|strong)(\s+href="[^"]*"|\s+title="[^"]*")?\s*>/g;
-    if (comment.replace(allowedTags, '') !== comment) {
-      setError('Invalid HTML tags found.');
-      return;
-    }
-
-    // Perform backend submission here (image, textFile, and comment)
-    console.log({comment, image, textFile});
-  };
-
-  // Handle Image Upload and Resize
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif')) {
-      Resizer.imageFileResizer(
-        file,
-        320,
-        240,
-        'JPEG',
-        100,
-        0,
-        (uri) => {
-          setImage(uri as string);
-        },
-        'base64'
-      );
+  input.replace(tagPattern, (match, tagName) => {
+    if (allowedTags.includes(tagName)) {
+      if (match[1] === "/") {
+        const lastOpened = openedTags.pop();
+        if (lastOpened !== tagName) {
+          isValid = false; // Tags not closed properly
+        }
+      } else {
+        openedTags.push(tagName);
+      }
     } else {
-      setError('Invalid image format. Only JPG, PNG, and GIF are allowed.');
+      isValid = false; // Invalid tag found
+    }
+  });
+
+  return isValid && openedTags.length === 0;
+};
+
+interface CommentFormProps {
+  openAddCommentModal: boolean;
+  closeAddCommentModal: () => void;
+  onSuccess: () => void;
+}
+
+const CommentForm: React.FC<CommentFormProps> = ({
+                                                   openAddCommentModal,
+                                                   closeAddCommentModal,
+                                                   onSuccess,
+                                                 }) => {
+  const dispatch = useDispatch();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const formikAddComment = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchemaAddComment,
+    onSubmit: (values) => {
+      if (validateHTML(values.text)) {
+        const formData = new FormData();
+        formData.append("text", values.text);
+        if (selectedFile) {
+          formData.append("file", selectedFile);
+        }
+
+        dispatch(addComment(formData)).then(() => {
+          onSuccess();
+        });
+        formikAddComment.resetForm();
+        closeAddCommentModal();
+      } else {
+        setErrorMessage("Invalid HTML tags or structure.");
+      }
+    },
+  });
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      if (file.type.includes("image")) {
+        // Resize image to 320x240 if necessary
+        Resizer.imageFileResizer(
+          file,
+          320,
+          240,
+          "JPEG", // Change format as necessary (JPG, GIF, PNG)
+          100,
+          0,
+          (uri) => {
+            setSelectedFile(uri as File); // Resized image
+          },
+          "file"
+        );
+      } else if (file.type === "text/plain" && file.size <= 102400) {
+        // Handle text file
+        setSelectedFile(file);
+      } else {
+        alert(
+          "Invalid file type or size. Only JPG, GIF, PNG images under 320x240 pixels or TXT files under 100KB are allowed."
+        );
+      }
     }
   };
 
-  // Handle Text File Upload
-  const handleTextFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && file.type === 'text/plain' && file.size <= 100 * 1024) {
-      setTextFile(file);
-    } else {
-      setError('Invalid text file. Must be a .txt file and under 100KB.');
-    }
-  };
+const insertTag = (tag: string) => {
+  const textarea = formikAddComment.values.text; // получаем текущее значение поля через formik
+  const startPos = textarea.length; // устанавливаем курсор в конец текста
+  const endPos = textarea.length;
+  const newText =
+    textarea.substring(0, startPos) +
+    (tag=== "a"? `<${tag}  href="" title="">` : `<${tag}>`) +
+    textarea.substring(startPos, endPos) +
+    `</${tag}>`;
+
+  formikAddComment.setFieldValue("text", newText); // обновляем значение через formik
+};
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        fullWidth
-        multiline
-        rows={4}
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        variant="outlined"
-        placeholder="Write your comment (Allowed HTML: <a>, <code>, <i>, <strong>)"
-      />
-
-      <Box mt={2}>
-        <Typography variant="body1">Upload an Image (JPG, PNG, GIF):</Typography>
-        <input type="file" accept="image/*" onChange={handleImageUpload}/>
-        {image && (
-          <Box mt={2}>
-            <img src={image} alt="Preview" width="320" height="240"/>
-          </Box>
-        )}
-      </Box>
-
-      <Box mt={2}>
-        <Typography variant="body1">Upload a Text File (TXT, max 100KB):</Typography>
-        <input type="file" accept=".txt" onChange={handleTextFileUpload}/>
-        {textFile && <Typography variant="body2">{textFile.name}</Typography>}
-      </Box>
-
-      {error && (
-        <Typography color="error" mt={2}>
-          {error}
+    <Modal
+      open={openAddCommentModal}
+      onClose={closeAddCommentModal}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={{width: 400, bgcolor: "white", p: 4, borderRadius: 2}}>
+        <div className={styles.close}>
+          <HighlightOffIcon onClick={closeAddCommentModal}/>
+        </div>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          Add Comment
         </Typography>
-      )}
-
-      <Button type="submit" variant="contained" color="primary" sx={{mt: 2}}>
-        Add Comment
-      </Button>
-    </form>
+        <Box component="form" onSubmit={formikAddComment.handleSubmit}>
+          <Typography variant="h6">Text:</Typography>
+          <TextField
+            id="text"
+            name="text"
+            variant="outlined"
+            multiline
+            rows={4}
+            fullWidth
+            value={formikAddComment.values.text}
+            onChange={formikAddComment.handleChange}
+            onBlur={formikAddComment.handleBlur}
+            error={
+              formikAddComment.touched.text &&
+              Boolean(formikAddComment.errors.text)
+            }
+            helperText={
+              formikAddComment.touched.text && formikAddComment.errors.text
+            }
+          />
+          {errorMessage && (
+            <Typography color="error">{errorMessage}</Typography>
+          )}
+          <Box mt={2}>
+            <input
+              accept=".jpg,.png,.gif,.txt"
+              type="file"
+              onChange={handleFileChange}
+            />
+          </Box>
+          <Box mt={2}>
+            <Button onClick={() => insertTag("i")}>[i]</Button>
+            <Button onClick={() => insertTag("strong")}>[strong]</Button>
+            <Button onClick={() => insertTag("code")}>[code]</Button>
+            <Button onClick={() => insertTag("a")}>[a]</Button>
+          </Box>
+          <Button type="submit" fullWidth variant="contained" color="primary">
+            <DoneIcon sx={{fontSize: 50}}/>
+          </Button>
+        </Box>
+      </Box>
+    </Modal>
   );
 };
 
 export default CommentForm;
-

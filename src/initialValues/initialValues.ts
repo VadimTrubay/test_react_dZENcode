@@ -1,19 +1,12 @@
 import {
-  IPasswordUpdateType,
   UserAuthorizationType,
-  IUsernameUpdateType,
   UserRegistrationType
 } from "../types/authTypes";
+import {CommentAddType} from "../types/commentsTypes.ts";
 
 
-export const initialValueUpdateUsername: IUsernameUpdateType = {
-  username: "",
-};
-
-export const initialValueUpdatePassword: IPasswordUpdateType = {
-  password: "",
-  new_password: "",
-  confirmPassword: "",
+export const initialValues: CommentAddType = {
+  text: "",
 };
 
 export const initialValueUserAuthorization: UserAuthorizationType = {

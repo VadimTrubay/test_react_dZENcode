@@ -1,6 +1,6 @@
 export const RouterEndpoints = {
     index: "/",
-    id: ":id",
+    id: ":id/",
     about: "about",
     comments: "comments/",
     me: "auth/me",

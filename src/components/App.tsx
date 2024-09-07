@@ -7,13 +7,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectIsLoggedIn} from "../redux/auth/selectors";
 import UserRegistrationPage from "../pages/UserRegistrationPage/UserRegistrationPage.tsx";
 import UserAuthorizationPage from "../pages/UserAuthorizationPage/UserAuthorizationPage.tsx";
-import CommentsPage from "../pages/CommentsPage/CommentsPage.tsx";
+import CommentsListPage from "../pages/CommentsListPage/CommentsListPage.tsx";
 import UserProfilePage from "../pages/UserProfilePage/UserProfilePage.tsx";
 import {getMe} from "../redux/auth/operations.ts";
 import {AppDispatch} from "../redux/store.ts";
 import {selectLoading} from "../redux/auth/selectors.js";
 import {Box} from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
+import CommentByIdPage from "../pages/CommentByIdPage/CommentsByIdPage.tsx";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const AboutPage = lazy(() => import("../pages/AboutPage/AboutPage"));
@@ -51,7 +52,11 @@ const App: React.FC = () => {
         />
         <Route
           path={`${RouterEndpoints.comments}`}
-          element={!isLoggedIn ? <Navigate to={RouterEndpoints.signin}/> : <CommentsPage/>}
+          element={!isLoggedIn ? <Navigate to={RouterEndpoints.signin}/> : <CommentsListPage/>}
+        />
+        <Route
+          path={`${RouterEndpoints.comments}/${RouterEndpoints.id}`}
+          element={!isLoggedIn ? <Navigate to={RouterEndpoints.signin}/> : <CommentByIdPage/>}
         />
         <Route
           path={RouterEndpoints.me}

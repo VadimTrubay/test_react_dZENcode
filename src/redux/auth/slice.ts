@@ -52,7 +52,7 @@ const handleLogOutFulfilled = (state: initialAuthType) => {
   state.loading = false;
   state.error = null;
   state.user = {
-    id: "", username: "",
+    id: null, username: "",
     email: "", password: "",
     new_password: "",
   };

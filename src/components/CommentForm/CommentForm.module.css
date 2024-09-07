@@ -1,0 +1,21 @@
+.addCommentButton {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--brand-color-contactbook);
+  cursor: pointer;
+}
+
+.title_add_comment {
+  background-color: var(--brand-color-contactbook);
+  color: #ffffff;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+

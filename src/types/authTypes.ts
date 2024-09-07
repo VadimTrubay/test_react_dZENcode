@@ -7,14 +7,14 @@ export interface initialAuthType {
 }
 
 export interface userType {
-  id: string;
+  id: number;
   username: string;
   email: string;
   home_page: string;
 }
 
 export interface authType {
-  id: string;
+  id: number;
   username: string;
   email: string;
   password: string;
@@ -22,28 +22,10 @@ export interface authType {
 }
 
 export interface authUserType {
-  id: string;
+  id: number;
   username: string;
   email: string;
   password: string;
-}
-
-export interface UsernameUpdateType {
-  id: string;
-  username: string;
-}
-
-export interface PasswordUpdateType {
-  id: string;
-  password: string;
-  new_password: string;
-  confirmPassword: string;
-}
-
-export interface PasswordUpdateBackType {
-  id: string;
-  password: string;
-  new_password: string;
 }
 
 export interface UserAuthorizationType {
@@ -63,14 +45,4 @@ export interface RegisterType {
   username: string;
   email: string;
   password: string;
-}
-
-export interface IUsernameUpdateType {
-  username: string;
-}
-
-export interface IPasswordUpdateType {
-  password: string;
-  new_password: string;
-  confirmPassword: string;
 }

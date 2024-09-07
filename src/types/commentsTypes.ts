@@ -36,9 +36,14 @@ export interface CommentsResponseType {
 
 export interface InitialCommentsType {
   items: CommentType[];
+  commentById: CommentType | null;
   count: number;
   next: number | null;
   previous: number | null;
   loading: boolean;
   error: null;
+}
+
+export interface CommentAddType {
+  text: string;
 }

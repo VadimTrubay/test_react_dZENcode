@@ -1,6 +1,6 @@
 import React from 'react';
-import {Box, Button, Typography} from '@mui/material';
-import {CommentType} from "../../types/commentsTypes.ts";
+import { Box, Button, Typography } from '@mui/material';
+import { CommentType } from "../../types/commentsTypes.ts";
 
 interface CommentTreeProps {
   comment: CommentType;
@@ -9,7 +9,7 @@ interface CommentTreeProps {
   onReply: () => void;
 }
 
-const CommentTree: React.FC<CommentTreeProps> = ({comment, isExpanded, onExpand, onReply}) => {
+const CommentTree: React.FC<CommentTreeProps> = ({ comment, isExpanded, onExpand, onReply }) => {
   return (
     <Box mb={2} ml={isExpanded ? 2 : 0}>
       <Typography variant="subtitle1">
@@ -19,8 +19,19 @@ const CommentTree: React.FC<CommentTreeProps> = ({comment, isExpanded, onExpand,
         {comment.content}
       </Typography>
       <Button onClick={onReply}>Reply</Button>
-      {isExpanded && (
-        <Button onClick={onExpand}>Collapse</Button>
+      <Button onClick={onExpand}>{isExpanded ? 'Collapse' : 'Expand'}</Button>
+      {isExpanded && comment.replies && (
+        <Box mt={2}>
+          {comment.replies.map(reply => (
+            <CommentTree
+              key={reply.id}
+              comment={reply}
+              isExpanded={false}  // Adjust if you want to manage nested expansion
+              onExpand={() => {}}
+              onReply={() => {}}
+            />
+          ))}
+        </Box>
       )}
     </Box>
   );
