@@ -11,7 +11,7 @@ export interface initialUsersType {
 }
 
 export interface UserType {
-  id: string;
+  id: number;
   username: string;
   email: string;
   home_page: string
@@ -24,8 +24,4 @@ export interface FetchUsersParams {
 
 export interface UserProps {
   user: authUserType;
-}
-
-export interface UsersListProps {
-  users: UserType[];
 }

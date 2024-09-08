@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import {authReducer} from "./auth/slice";
+import {commentsReducer} from "./comments/slice.ts";
 
 
 const authPersistConfig = {
@@ -24,6 +25,7 @@ type AuthPersistedState = ReturnType<typeof authReducer>;
 export const store = configureStore({
   reducer: {
     auth: persistReducer<AuthPersistedState>(authPersistConfig, authReducer),
+    comments: commentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

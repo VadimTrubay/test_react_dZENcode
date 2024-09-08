@@ -1,35 +1,26 @@
-import React, {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React from "react";
+import {useSelector} from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import {
   Typography,
   Box,
-  LinearProgress,
+  CircularProgress,
   Grid2
 } from "@mui/material";
-import {AppDispatch} from "../../redux/store";
 
 import {selectLoading, selectUser} from "../../redux/auth/selectors";
 import {UserType} from "../../types/usersTypes";
-import {getMe} from "../../redux/auth/operations.ts";
 
 
 const UserProfilePage: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const currentUser = useSelector(selectUser) as UserType;
   const loading = useSelector(selectLoading);
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     dispatch(getMe());
-  //   }
-  // }, []);
 
   return (
     loading ?
       (
         <Box>
-          <LinearProgress/>
+          <CircularProgress/>
         </Box>
       ) : (
         <>

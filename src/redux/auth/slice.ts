@@ -4,7 +4,7 @@ import {authType, initialAuthType} from "../../types/authTypes";
 
 const initialAuth: initialAuthType = {
   user: {
-    id: "",
+    id: null,
     username: "",
     email: "",
     home_page: "",
@@ -52,7 +52,7 @@ const handleLogOutFulfilled = (state: initialAuthType) => {
   state.loading = false;
   state.error = null;
   state.user = {
-    id: "", username: "",
+    id: null, username: "",
     email: "", password: "",
     new_password: "",
   };

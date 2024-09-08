@@ -11,7 +11,7 @@ const HomePage: React.FC = () => {
         Home
       </Typography>
       <Typography>
-        Wellcome to single page application CHAT
+        Wellcome to single page application Comments
       </Typography>
     </div>
   );

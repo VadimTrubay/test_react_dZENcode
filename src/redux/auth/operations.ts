@@ -11,7 +11,7 @@ export const signUp = createAsyncThunk(
       setAuthHeader(response.data.access_token);
       return response.data;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data.detail);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -24,7 +24,7 @@ export const signIn = createAsyncThunk(
       setAuthHeader(response.data.access_token);
       return response.data;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data.detail);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -36,7 +36,7 @@ export const getMe = createAsyncThunk(
       const response = await getMeApi();
       return response.data;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data.detail);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -47,7 +47,7 @@ export const logOut = createAsyncThunk(
     try {
       clearAuthHeader();
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.response.data.detail);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

@@ -1,11 +1,11 @@
 export const auth = "/auth";
-
+export const comments = "comments";
 
 export const mainUrls = {
   index: "/",
   id: ":id",
   about: "about",
-  chat: "chat",
+
   terms: "terms",
   notFound: "*",
   auth: {
@@ -13,9 +13,9 @@ export const mainUrls = {
     signin: `${auth}/signin`,
     me: `${auth}/me`
   },
-  // chat: {
-  //   messages: `messages`,
-  //   all: (skip: number, limit: number) => `${users}?skip=${skip}&limit=${limit}`,
-  //   byId: (id: string) => `${users}/${id}`,
-  // },
+  comments: {
+    all: `${comments}/`,
+    id: (id: number) => `${id}/`,
+    byId: (id: number) => `${comments}/${id}/`,
+  },
 }
