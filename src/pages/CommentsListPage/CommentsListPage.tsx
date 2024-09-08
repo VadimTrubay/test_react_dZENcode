@@ -15,7 +15,7 @@ import {
   Box
 } from '@mui/material';
 import {deleteComment, fetchCommentsList} from "../../redux/comments/operations";
-import {AddComment, Sort} from '@mui/icons-material';
+import {Sort} from '@mui/icons-material';
 import parse from 'html-react-parser';
 import {CommentType} from "../../types/commentsTypes";
 import {AppDispatch} from "../../redux/store";
@@ -23,14 +23,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectAllComments, selectCountComments} from "../../redux/comments/selectors";
 import {NavLink} from "react-router-dom";
 import {mainUrls} from "../../config/urls";
-import {GrView} from "react-icons/gr";
-import {BiCommentAdd} from "react-icons/bi";
 import styles from "./CommentsListPage.module.css";
 import CommentForm from "../../components/CommentForm/CommentForm.tsx";
-import {MdDeleteForever} from "react-icons/md";
 import BaseModalWindow from "../../components/BaseModalWindow/BaseModalWindow.tsx";
 import {selectUser} from "../../redux/auth/selectors";
 import {userType} from "../../types/authTypes.ts";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {FaEye} from "react-icons/fa";
 
 const CommentsListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -40,12 +39,12 @@ const CommentsListPage: React.FC = () => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
-  const [sortOrder, setSortOrder] = useState('asc'); // Default to descending
+  const [sortOrder, setSortOrder] = useState('asc');
   const [sortField, setSortField] = useState('created_at');
   const [openAddCommentModal, setOpenAddCommentModal] = useState(false);
   const [openDeleteCommentModal, setOpenDeleteCommentModal] = useState<boolean>(false);
   const [commentToDelete, setCommentToDelete] = useState<CommentType | null>(null);
-  const [refreshFlag, setRefreshFlag] = useState(false); // Track when to refresh comments
+  const [refreshFlag, setRefreshFlag] = useState(false);
 
   const handleOpenAddCommentModal = () => setOpenAddCommentModal(true);
   const handleCloseAddCommentModal = () => setOpenAddCommentModal(false);
@@ -63,7 +62,7 @@ const CommentsListPage: React.FC = () => {
     if (commentToDelete) {
       dispatch(deleteComment(commentToDelete.id));
       handleCloseDeleteCommentModal();
-      setRefreshFlag(!refreshFlag); // Trigger refresh after deletion
+      setRefreshFlag(!refreshFlag);
     }
   };
 
@@ -74,12 +73,10 @@ const CommentsListPage: React.FC = () => {
   };
 
   useEffect(() => {
-    // Fetch comments only when relevant dependencies change
     dispatch(fetchCommentsList(fetchParams));
   }, [page, rowsPerPage, sortField, sortOrder, refreshFlag, dispatch]);
 
   useEffect(() => {
-    // Set comments when allComments changes
     setComments(allComments);
   }, [allComments]);
 
@@ -99,7 +96,7 @@ const CommentsListPage: React.FC = () => {
   };
 
   const handleAddCommentSuccess = () => {
-    setRefreshFlag(!refreshFlag); // Trigger refresh after adding a comment
+    setRefreshFlag(!refreshFlag);
     handleCloseAddCommentModal();
   };
 
@@ -107,7 +104,7 @@ const CommentsListPage: React.FC = () => {
     <>
       <TableContainer component={Paper}>
         <Typography variant="h5" gutterBottom>
-          Comments List
+          Comments
         </Typography>
         <Table className={styles.table}>
           <TableHead>
@@ -147,24 +144,23 @@ const CommentsListPage: React.FC = () => {
                 <TableCell
                   className={styles.otherColumns}>{new Date(comment.created_at || '').toLocaleString()}</TableCell>
                 <TableCell className={styles.otherColumns}>
-                  <NavLink to={mainUrls.comments.byId(comment.id)}>
-                    <GrView className={styles.view_comment_link}/>
+                  <NavLink to={mainUrls.comments.id(comment.id)}>
+                    <FaEye color={"blue"} size={25}/>
                   </NavLink>
                 </TableCell>
                 <TableCell className={styles.otherColumns}>
                   {currentUser?.id === comment?.user.id && (
-                    <Button onClick={() => handleOpenDeleteCommentModal(comment)}>
-                      <MdDeleteForever className={styles.add_comment_link}/>
-                    </Button>
+                    <IconButton onClick={() => handleOpenDeleteCommentModal(comment)} color="error">
+                      <DeleteIcon/>
+                    </IconButton>
                   )}
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <Button onClick={handleOpenAddCommentModal}>
-          <BiCommentAdd className={styles.add_comment_link}/>
-          Add Comment
+        <Button variant="outlined" onClick={handleOpenAddCommentModal}>
+          + Add Comment
         </Button>
         <TablePagination
           rowsPerPageOptions={[25, 50, 100]}
@@ -179,7 +175,7 @@ const CommentsListPage: React.FC = () => {
           <CommentForm
             openAddCommentModal={openAddCommentModal}
             closeAddCommentModal={handleCloseAddCommentModal}
-            onSuccess={handleAddCommentSuccess} // Pass success handler
+            onSuccess={handleAddCommentSuccess}
           />
         </Box>
       </TableContainer>

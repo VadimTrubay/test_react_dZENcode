@@ -1,8 +1,7 @@
 import {Suspense} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
 import {LayoutProps} from "../../types/layoutTypes";
-import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box";
+import {Box, CircularProgress} from "@mui/material";
 import Navigation from "../Navigation/Navigation";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -25,7 +24,7 @@ export const Layout = ({children}: LayoutProps) => {
       </div>
       <Suspense fallback={
         <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-          <LinearProgress/>
+          <CircularProgress />
         </Box>
       }>
         <Toaster position="top-center"/>

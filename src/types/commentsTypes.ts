@@ -40,6 +40,7 @@ export interface InitialCommentsType {
   count: number;
   next: number | null;
   previous: number | null;
+  refresh: boolean;
   loading: boolean;
   error: null;
 }

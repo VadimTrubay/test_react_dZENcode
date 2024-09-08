@@ -4,7 +4,7 @@ import {authType, initialAuthType} from "../../types/authTypes";
 
 const initialAuth: initialAuthType = {
   user: {
-    id: "",
+    id: null,
     username: "",
     email: "",
     home_page: "",

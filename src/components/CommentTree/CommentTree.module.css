@@ -6,109 +6,6 @@
   text-align: center;
 }
 
-
-.table {
-  width: 100%;
-  margin-bottom: 20px;
-  border-collapse: collapse;
-}
-
-.table th, .table td {
-  padding: 12px;
-  text-align: center; /* Center-align all columns */
-  border-bottom: 1px solid #ddd;
-}
-
-.table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-.table td {
-  word-wrap: break-word;
-}
-
-.table .first-column {
-  text-align: left; /* Align first column to the left */
-  width: 33%; /* Ensure first column takes up at least one-third of the width */
-}
-
-
-.modalContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-
-.modalHeader {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 16px;
-}
-
-.modalCloseButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
-
-.paginationContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.tableRow {
-  background-color: #c9c9c9;
-}
-
-.tableRow:nth-of-type(odd) {
-  background-color: #ffffff;
-}
-
-
-.avatar {
-  background-color: #a1a1a1;
-  border: 1px solid #ffffff;
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
-}
-
-
-.link:hover {
-  text-decoration: none;
-  color: var(--link-hover);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.title_delete {
-  background-color: #ff0000;
-  color: #ffffff;
-  border-radius: 3px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-
-
-.inviteMemberButton {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.container {
-  text-align: center;
-}
-
-.title {
-  text-align: center;
-}
-
 .button {
   background-color: var(--brand-color-contactbook);
 }
@@ -222,6 +119,11 @@
   margin: 0 auto;
 }
 
+.link {
+  text-decoration: none;
+  font-size: 18px;
+  color: var(--action-background-color);
+}
 
 .link:hover {
   text-decoration: none;

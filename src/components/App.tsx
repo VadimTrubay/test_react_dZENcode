@@ -12,8 +12,7 @@ import UserProfilePage from "../pages/UserProfilePage/UserProfilePage.tsx";
 import {getMe} from "../redux/auth/operations.ts";
 import {AppDispatch} from "../redux/store.ts";
 import {selectLoading} from "../redux/auth/selectors.js";
-import {Box} from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
+import {Box, CircularProgress} from "@mui/material";
 import CommentByIdPage from "../pages/CommentByIdPage/CommentsByIdPage.tsx";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
@@ -34,7 +33,7 @@ const App: React.FC = () => {
   if (loading) {
     return (
       <Box>
-        <LinearProgress/>
+        <CircularProgress/>
       </Box>
     );
   }

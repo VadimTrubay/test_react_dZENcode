@@ -9,11 +9,13 @@ const initialComments: InitialCommentsType = {
   count: 0,
   next: null,
   previous: null,
+  refresh: false,
   loading: false,
   error: null,
 };
 
 const handlePending = (state: InitialCommentsType) => {
+  state.refresh = false;
   state.loading = true;
 };
 
@@ -41,6 +43,7 @@ const handleAddCommentFulfilled = (state: InitialCommentsType, action: PayloadAc
   state.loading = false;
   state.error = null;
   state.items.push(action.payload);
+  state.refresh = true;
   toast.success(`Comment added successfully`);
 };
 
@@ -48,6 +51,7 @@ const handleDeleteCommentFulfilled = (state: InitialCommentsType, action: Payloa
   state.loading = false;
   state.error = null;
   state.items = state.items.filter((comment) => comment.id !== action.payload.id);
+  state.refresh = true;
   toast.success(`Comment deleted successfully`);
 };
 

@@ -1,5 +1,9 @@
+# test_React_dZENcode
 # React + TypeScript + Vite
 
+- This is a simple project that implements the functionality of user registration and exchange
+- of messages and comments with other users with the ability to add and delete your messages and comments.
+- 
 ## Getting Started
 
 To get started with this project, you will need to have Node.js and npm (or yarn) installed on your machine.
@@ -48,9 +52,15 @@ To start the using Docker, run:
 
 Using:
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 After the server starts, open your web browser and navigate to:
 
 http://localhost:5173/
+
+# Used technologies:
+
+- TypeScript
+- React
+- GitHub

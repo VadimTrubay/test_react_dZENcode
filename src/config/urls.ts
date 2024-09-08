@@ -13,9 +13,9 @@ export const mainUrls = {
     signin: `${auth}/signin`,
     me: `${auth}/me`
   },
-    comments: {
+  comments: {
     all: `${comments}/`,
-    byId: (id: number) => `${id}/`,
-    byIdd: (id: number) => `${comments}/${id}/`,
+    id: (id: number) => `${id}/`,
+    byId: (id: number) => `${comments}/${id}/`,
   },
 }

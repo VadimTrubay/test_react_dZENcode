@@ -7,7 +7,7 @@ export interface initialAuthType {
 }
 
 export interface userType {
-  id: number;
+  id: number | null;
   username: string;
   email: string;
   home_page: string;

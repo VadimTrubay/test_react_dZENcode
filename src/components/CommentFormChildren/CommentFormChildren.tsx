@@ -8,8 +8,9 @@ import Resizer from "react-image-file-resizer";
 import {addComment} from "../../redux/comments/operations";
 import {initialValues} from "../../initialValues/initialValues";
 import {validationSchemaAddComment} from "../../validate/validationSchemaAddComment";
+import styles from "./CommentFormChildren.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
-import styles from "./CommentForm.module.css";
+import {CommentType} from "../../types/commentsTypes.ts";
 
 const allowedTags = ["a", "code", "i", "strong"];
 
@@ -37,32 +38,37 @@ const validateHTML = (input: string) => {
 };
 
 interface CommentFormProps {
+  comment: CommentType;
   openAddCommentModal: boolean;
   closeAddCommentModal: () => void;
   onSuccess: () => void;
 }
 
-const CommentForm: React.FC<CommentFormProps> = ({
-                                                   openAddCommentModal,
-                                                   closeAddCommentModal,
-                                                   onSuccess,
-                                                 }) => {
+const CommentFormChildren: React.FC<CommentFormProps> = ({
+                                                           comment,
+                                                           openAddCommentModal,
+                                                           closeAddCommentModal,
+                                                           onSuccess,
+                                                         }) => {
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [captchaValue, setCaptchaValue] = useState(null);
+  const [captchaValue, setCaptchaValue] = useState<any>(null);
 
   const formikAddComment = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchemaAddComment,
     onSubmit: (values) => {
       if (validateHTML(values.text)) {
-        const formData = new FormData();
+        const formData: any = new FormData();
         formData.append("text", values.text);
         if (selectedFile) {
           formData.append("file", selectedFile);
         }
         formData.append('captcha', captchaValue);
+        if (comment) {
+          formData.append("parent", Number(comment.id));
+        }
 
         dispatch(addComment(formData)).then(() => {
           onSuccess();
@@ -126,18 +132,32 @@ const CommentForm: React.FC<CommentFormProps> = ({
       onClose={closeAddCommentModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      onBackdropClick={closeAddCommentModal}
     >
       <Box
-        className={styles.backdrop}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        }}
       >
-        <Box className={styles.modalContent}>
+        <Box
+          sx={{
+            width: 400,
+            bgcolor: 'white',
+            p: 4,
+            borderRadius: 2,
+            position: 'relative',
+          }}
+        >
           <div className={styles.close}>
             <HighlightOffIcon onClick={closeAddCommentModal}/>
           </div>
-          <div id="modal-modal-title" variant="h6" component="h2" className={styles.title_add_comment}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
             Add Comment
-          </div>
+          </Typography>
           <Box component="form" onSubmit={formikAddComment.handleSubmit}>
             <Typography variant="h6">Text:</Typography>
             <TextField
@@ -196,4 +216,4 @@ const CommentForm: React.FC<CommentFormProps> = ({
   );
 };
 
-export default CommentForm;
+export default CommentFormChildren;

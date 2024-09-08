@@ -25,7 +25,3 @@ export interface FetchUsersParams {
 export interface UserProps {
   user: authUserType;
 }
-
-export interface UsersListProps {
-  users: UserType[];
-}
