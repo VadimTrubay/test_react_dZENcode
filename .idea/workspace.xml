@@ -5,35 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c3a8751-3e7e-4a8b-8cdd-b259a56ee994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/BaseModalWindow/BaseModalWindow.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/CommentForm/CommentForm.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/CommentByIdPage/CommentsByIdPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/CommentsListPage/CommentsListPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/BaseModal.styled.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/validate/validationSchemaAddComment.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/apiComments.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/apiComments.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommentForm/CommentForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentForm/CommentForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommentTree/CommentTree.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentTree/CommentTree.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navigation/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation/Navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReplyModal/ReplyModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReplyModal/ReplyModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/urls.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/urls.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/initialValues/initialValues.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/initialValues/initialValues.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/CommentsPage/CommentsPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CommentsListPage/CommentsListPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/CommentsPage/CommentsPage.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/auth/operations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/auth/operations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/auth/slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/auth/slice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/comments/operations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/comments/operations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/comments/selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/comments/selectors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/comments/slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/comments/slice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/authTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/authTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/commentsTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/commentsTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/usersTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/usersTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/createAxiosInstance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/createAxiosInstance.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +31,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/work_it/github/test_react_dZENcode/src/components",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/work_it/github/test_react_dZENcode",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -96,6 +71,7 @@
       <workItem from="1725629913818" duration="1684000" />
       <workItem from="1725647758893" duration="223000" />
       <workItem from="1725683397443" duration="24635000" />
+      <workItem from="1733141508284" duration="998000" />
     </task>
     <servers />
   </component>

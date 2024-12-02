@@ -1,4 +1,4 @@
-export const auth = "/auth";
+export const auth = "/api-auth";
 export const comments = "comments";
 
 export const mainUrls = {
@@ -9,9 +9,9 @@ export const mainUrls = {
   terms: "terms",
   notFound: "*",
   auth: {
-    signup: `${auth}/signup`,
-    signin: `${auth}/signin`,
-    me: `${auth}/me`
+    signup: `${auth}/signup/`,
+    signin: `${auth}/login/`,
+    me: `${auth}/me/`
   },
   comments: {
     all: `${comments}/`,

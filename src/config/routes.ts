@@ -6,7 +6,7 @@ export const RouterEndpoints = {
   me: "auth/me",
 
   signup: "/signup",
-  signin: "/signin",
+  signin: "/login",
 
   terms: "terms",
   notFound: "*",
