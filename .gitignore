@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .env
-.idea/workspace.xml
+.idea
 
 node_modules
 dist
